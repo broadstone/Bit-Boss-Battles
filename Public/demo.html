@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>Bit Boss Battles | Demo</title>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        <link href="./stylesheets/styles.css" rel="stylesheet">
+        <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="./javascripts/info.js"></script>
+        <script src="./javascripts/sound.js"></script>
+        <script src="./javascripts/cookies.js"></script>
+        <script src="./javascripts/socket.js"></script>
+        <script src="./javascripts/demo.js"></script>
+    </head>
+    <body style="width: 350px; height: 325px;">
+        <div class="allcontainer">
+            <div>
+                <div id="imgcontainer">
+                    <img id="avatar"/>
+                </div><!--
+             --><div id="infocontainer">
+                    <div id="boss"><span id="scroll"><span id="name">&nbsp;</span></span>&nbsp;<span id="loss">&nbsp;</span></div>
+                    <div id="healthcontainer">
+                        <div id="background"></div>
+                        <div id="hitdelay"></div>
+                        <div id="health"></div>
+                        <h5 id="hp">HP: 0 / 1,000</h5>
+                    </div>
+                </div>
+            </div>
+            <div id="attackercontainer">
+                <span id="attackerdisplay">&nbsp;</span>
+            </div>
+        </div>
+        <div style="height: 20px;"></div>
+        <button id="strike1">1 Bit</button>
+        <button id="strike100">100 Bits</button>
+        <button id="strike1000">1000 Bits</button>
+        <button id="strike5000">5000 Bits</button>
+        <button id="strike10000">10000 Bits</button>
+        <br><br>
+        <label style="color: white;">Attacker: </label><input type="text" id="attackerinput">
+        <span id="test">&nbsp;</span>
+    </body>
+</html>

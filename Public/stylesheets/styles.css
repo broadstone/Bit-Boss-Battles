@@ -1,0 +1,21 @@
+body { background-color: rgba(0,0,0,0); margin: 0; padding: 0px; }
+button { display: block; }
+div#boss { position: relative; color: white; margin: 0; margin-bottom: 17px; font-family: 'Press Start 2P', cursive; }
+span#scroll {  position: absolute; margin: 0; max-width: 192px; overflow-x: hidden; }
+span#loss {  position: absolute; right: 0px; margin: 0; }
+span#test { position: fixed; top: 200px; left: 500px; visibility: hidden; margin: 0; font-family: 'Press Start 2P', cursive; }
+span#attackerdisplay { margin: 0; }
+h5#hp { color: white; position: absolute; margin: 0; padding-left: 10px; font-family: 'Press Start 2P', cursive; top: 50%; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); z-index: 4; }
+span#loss { visibility: hidden; }
+div.allcontainer { background-color: #222; padding: 5px; width: 340px; height: 90px; }
+div#imgcontainer { position: relative; display: inline-block; height: 65px; width: 65px; margin-right: 5px; }
+div#infocontainer { display: inline-block; vertical-align: top; width: calc(100% - 70px); }
+div#healthcontainer { position: relative; height: 32px; bottom: 0px; }
+div#attackercontainer { color: white; padding-top: 5px; font-family: 'Press Start 2P', cursive; overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap; }
+div#background { background-color: red; position: absolute; top: 0px; left: 0px; height: 100%; width: 100%; z-index: 1; }
+div#hitdelay { background-color: orange; position: absolute; top: 0px; left: 0px; height: 100%; width: 100%; z-index: 2; }
+div#health { background-color: green; position: absolute; top: 0px; left: 0px; height: 100%; width: 100%; z-index: 3; }
+img#avatar { position: absolute; height: 100%; z-index: 1; }
+img#strikeimg { position: absolute; height: 100%; z-index: 2; }
+img#explodeimg { position: absolute; height: 100%; z-index: 2; }
+img#cheerimg { width: 14px; height: 14px; display: inline; margin-right: 5px; }

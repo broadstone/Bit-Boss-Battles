@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>Bit Boss Battles | Auth</title>
+        <script src="./javascripts/cookies.js"></script>
+        <script type="text/javascript">
+            parseCookies();
+            
+            if (document.location.hash != "")
+            {
+                setCookie("auth", document.location.hash.split("=")[1].split("&")[0]);
+                window.close();
+            }
+        </script>
+    </head>
+</html>

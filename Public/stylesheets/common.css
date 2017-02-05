@@ -1,0 +1,88 @@
+div.main { max-width: 720px; border: 1px solid black; border-radius: 8px; padding: 10px 0; margin: 0 auto; }
+div.link { margin: 0 auto; padding: 10px; border: 1px solid #cccccc; border-radius: 4px; background-color: #eeeeee; word-break: break-all; }
+div.container { margin: 10px 0; padding: 10px 10px 0px 10px; }
+div.space { height: 25px; }
+table { border-collapse: collapse; }
+tr { border-top: 1px solid black; border-bottom: 1px solid black; }
+td { width: 50%; vertical-align: top; padding: 10px; }
+td>p { margin: 0; padding-left: 5px; }
+button { width: 100%; }
+p.indent { text-indent: 25px; }
+
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    background-image: linear-gradient(to bottom, #fff 0, #e0e0e0 100%);
+}
+    .btn:focus,
+    .btn:active:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+    .btn:hover,
+    .btn:focus {
+    color: #333333;
+    text-decoration: none;
+}
+    .btn:active {
+    outline: 0;
+    background-image: none;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.btn[disabled] {
+    cursor: not-allowed;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn-default {
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc;
+}
+.btn-default:focus {
+    color: #333333;
+    background-color: #e6e6e6;
+    border-color: #8c8c8c;
+}
+.btn-default:hover {
+    color: #333333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+.btn-default:active {
+    color: #333333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+.btn-default:active:hover,
+.btn-default:active:focus {
+    color: #333333;
+    background-color: #d4d4d4;
+    border-color: #8c8c8c;
+}
+.btn-default:active {
+    background-image: none;
+}
+.btn-default[disabled],
+.btn-default[disabled]:hover,
+.btn-default[disabled]:focus,
+.btn-default[disabled]:active {
+    background-color: #ffffff;
+    border-color: #cccccc;
+}
