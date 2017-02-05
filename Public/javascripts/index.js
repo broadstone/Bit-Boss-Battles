@@ -4,6 +4,14 @@ $(document).ready(function() {
     
     if (getCookie("sound", "") == "true") { $("#sound").prop("checked", true); }
     
+    if (getCookie("hptype", "overkill") == "constant")
+    {
+        $("input[type='radio'][name='hp'][value='constant']").click();
+        
+        $("#hp-amnt").prop("disabled", false);
+        $("#hp-mult").prop("disabled", true);
+    }
+    
     var authWait = setInterval(function() {
 
         parseCookies();
