@@ -12,10 +12,12 @@ $(document).ready(function() {
         $("input[type='radio'][name='hp'][value='constant']").click();
         
         $("#hp-amnt").prop("disabled", false);
+        $("#hp-init").prop("disabled", true);
         $("#hp-mult").prop("disabled", true);
     }
     
     if (getCookie("hpmult", "") != "") { $("#hp-mult").val(parseInt(getCookie("hpmult", "")) || 1) }
+    if (getCookie("hpinit", "") != "") { $("#hp-init").val(parseInt(getCookie("hpinit", "")) || 1000) }
     if (getCookie("hpamnt", "") != "") { $("#hp-amnt").val(parseInt(getCookie("hpamnt", "")) || 1000) }
     
     $("#sound").click(function() {
@@ -44,11 +46,13 @@ $(document).ready(function() {
         if ($(this).val() == "overkill")
         {
             $("#hp-mult").prop("disabled", false);
+            $("#hp-init").prop("disabled", false);
             $("#hp-amnt").prop("disabled", true);
         }
         else if ($(this).val() == "constant")
         {
             $("#hp-amnt").prop("disabled", false);
+            $("#hp-init").prop("disabled", true);
             $("#hp-mult").prop("disabled", true);
         }
     });
@@ -56,6 +60,11 @@ $(document).ready(function() {
     $("#hp-mult").change(function() {
         
         setCookie("hpmult", $(this).val().toString());
+    });
+    
+    $("#hp-init").change(function() {
+        
+        setCookie("hpinit", $(this).val().toString());
     });
     
     $("#hp-amnt").change(function() {

@@ -109,7 +109,7 @@ $(document).ready(function () {
         
         hpType = GetUrlParameter("hptype") || hpType;
         hpMult = parseInt(GetUrlParameter("hpmult")) || hpMult;
-        hpAmnt = (hpType == "overkill" ? 1000 : parseInt(GetUrlParameter("hpamnt")) || hpAmnt);
+        hpAmnt = (hpType == "overkill" ? parseInt(GetUrlParameter("hpinit")) || hpAmnt : parseInt(GetUrlParameter("hpamnt")) || hpAmnt);
         
         if (GetUrlParameter("persistent") != "true" || GetUrlParameter("reset") == "true")
         {
@@ -130,7 +130,7 @@ $(document).ready(function () {
         
         hpType = getCookie("hptype", "overkill");
         hpMult = parseInt(getCookie("hpmult", "1"));
-        hpAmnt = (hpType == "overkill" ? 1000 : parseInt(getCookie("hpamnt", "1000")));
+        hpAmnt = (hpType == "overkill" ? parseInt(getCookie("hpinit", "") || hpAmnt) : parseInt(getCookie("hpamnt", "")) || hpAmnt);
         
         if (getCookie("persistent", "false") != "true")
         {
