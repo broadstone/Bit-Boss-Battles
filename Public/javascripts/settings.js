@@ -6,6 +6,7 @@ $(document).ready(function() {
     if (getCookie("trans", "") == "true") { $("#trans").prop("checked", true); }
     if (getCookie("chroma", "") == "true") { $("#chroma").prop("checked", true); }
     if (getCookie("persistent", "") == "true") { $("#persistent").prop("checked", true); }
+    if (getCookie("bossheal", "") == "true") { $("#bossheal").prop("checked", true); }
     
     if (getCookie("hptype", "overkill") == "constant")
     {
@@ -38,6 +39,11 @@ $(document).ready(function() {
     $("#persistent").click(function() {
         
         setCookie("persistent", $(this).prop("checked").toString());
+    });
+    
+    $("#bossheal").click(function() {
+        
+        setCookie("bossheal", $(this).prop("checked").toString());
     });
     
     $("input[type='radio'][name='hp']").change(function() {

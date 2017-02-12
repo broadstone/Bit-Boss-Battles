@@ -38,7 +38,7 @@ $(document).ready(function() {
     
     function SettingsToString() {
         
-        return "?sound=" + getCookie("sound", "false") + "&trans=" + getCookie("trans", "false") + "&chroma=" + getCookie("chroma", "false") + "&persistent=" + getCookie("persistent", "false") + "&hptype=" + getCookie("hptype", "overkill") + "&hpmult=" + getCookie("hpmult", "1") + "&hpinit=" + getCookie("hpinit", "1000") + "&hpamnt=" + getCookie("hpamnt", "1000");
+        return "?sound=" + getCookie("sound", "false") + "&trans=" + getCookie("trans", "false") + "&chroma=" + getCookie("chroma", "false") + "&persistent=" + getCookie("persistent", "false") + "&bossheal=" + getCookie("bossheal", "false") + "&hptype=" + getCookie("hptype", "overkill") + "&hpmult=" + getCookie("hpmult", "1") + "&hpinit=" + getCookie("hpinit", "1000") + "&hpamnt=" + getCookie("hpamnt", "1000");
     }
     
     $("#auth").click(LaunchAuth);

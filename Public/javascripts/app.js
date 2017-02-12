@@ -42,6 +42,7 @@ $(document).ready(function () {
     var hpType = "overkill";
     var hpMult = 1;
     var hpAmnt = 1000;
+    var bossHeal = false;
     
     // HP variables
     var prevHp = 0;
@@ -98,6 +99,11 @@ $(document).ready(function () {
         "http://i.imgur.com/LCYgixP.gif"
     ];
     
+    // Heal
+    var heal = "http://i.imgur.com/fOvRfRk.gif";
+    
+    // TODO: Add Heal gifs.
+    
     parseCookies();
     
     if (GetUrlParameter("token") != null)
@@ -110,6 +116,8 @@ $(document).ready(function () {
         hpType = GetUrlParameter("hptype") || hpType;
         hpMult = parseInt(GetUrlParameter("hpmult")) || hpMult;
         hpAmnt = (hpType == "overkill" ? parseInt(GetUrlParameter("hpinit")) || hpAmnt : parseInt(GetUrlParameter("hpamnt")) || hpAmnt);
+        
+        bossHeal = (GetUrlParameter("bossheal") == "true");
         
         if (GetUrlParameter("persistent") != "true" || GetUrlParameter("reset") == "true")
         {
@@ -131,6 +139,8 @@ $(document).ready(function () {
         hpType = getCookie("hptype", "overkill");
         hpMult = parseInt(getCookie("hpmult", "1"));
         hpAmnt = (hpType == "overkill" ? parseInt(getCookie("hpinit", "") || hpAmnt) : parseInt(getCookie("hpamnt", "")) || hpAmnt);
+        
+        bossHeal = (getCookie("bossheal", "") == "true");
         
         if (getCookie("persistent", "false") != "true")
         {
@@ -204,12 +214,46 @@ $(document).ready(function () {
                 else if (message.bits_used < 10000) { amount = "5000"; }
                 else { amount = "10000"; }
                 
-                $("#attackerdisplay").html("<img id='cheerimg' src='https://d3aqoihi2n8ty8.cloudfront.net/actions/" + message.context + "/light/animated/" + amount + "/1.gif?a=" + Math.random() + "'>" + info.displayName);
-                
-                $("#attackerdisplay").stop().animate({ "opacity": "1" }, 1000, "linear", function() { setTimeout(function() { $("#attackerdisplay").css("opacity", "0"); $("#attackerdisplay").html("&nbsp;"); }, 1000) });
-                
-                Strike(message.bits_used, message.user_name, info.displayName);
+                if (info.displayName == $("#name").html())
+                {
+                    if (bossHeal)
+                    {
+                        $("#attackerdisplay").html("<img id='cheerimg' src='https://d3aqoihi2n8ty8.cloudfront.net/actions/" + message.context + "/light/animated/" + amount + "/1.gif?a=" + Math.random() + "'>" + info.displayName + " heals!");
+
+                        $("#attackerdisplay").stop().animate({ "opacity": "1" }, 1000, "linear", function() { setTimeout(function() { $("#attackerdisplay").css("opacity", "0"); $("#attackerdisplay").html("&nbsp;"); }, 1000) });
+
+                        Heal(message.bits_used, message.user_name, info.displayName);
+                    }
+                }
+                else
+                {
+                    $("#attackerdisplay").html("<img id='cheerimg' src='https://d3aqoihi2n8ty8.cloudfront.net/actions/" + message.context + "/light/animated/" + amount + "/1.gif?a=" + Math.random() + "'>" + info.displayName + " attacks!");
+
+                    $("#attackerdisplay").stop().animate({ "opacity": "1" }, 1000, "linear", function() { setTimeout(function() { $("#attackerdisplay").css("opacity", "0"); $("#attackerdisplay").html("&nbsp;"); }, 1000) });
+
+                    Strike(message.bits_used, message.user_name, info.displayName);
+                }
             });
+        }
+    }
+    
+    function Heal(amount, healer, display) {
+        
+        if (nextBoss == "")
+        {
+            $("#strikeimg").remove();
+            if (imgRemove != null) { clearTimeout(imgRemove); }
+            
+            loss -= amount;
+            setCookie("currentHp", Math.min(hp - loss, hpAmnt).toString());
+
+            isDelayed = true;
+
+            if (animDelay != null) { clearTimeout(animDelay); }
+
+            if (frstDelay != null) { clearTimeout(frstDelay); }
+
+            frstDelay = setTimeout(RunHpCalc, 1000);
         }
     }
 
@@ -272,47 +316,93 @@ $(document).ready(function () {
 
             if (frstDelay != null) { clearTimeout(frstDelay); }
 
-            frstDelay = setTimeout(function() {
+            frstDelay = setTimeout(RunHpCalc, 1000);
+        }
+    }
+    
+    function RunHpCalc() {
+        
+        hp = Math.min(Math.max(0, hp - loss), hpAmnt);
+        
+        if (loss == 0) { return; }
+        else if (loss > 0)
+        {
+            health.css("width", ((hp / hpAmnt) * 100).toString() + "%");
+            if (sound) { damage[GetRandomInt(0, damage.length - 1)].play(); }
+            
+            lossOffset = 20;
+            lossShowing = true;
+            $("#loss").html("-" + loss.toString());
+            $("#loss").css({
 
-                hp = Math.max(0, hp - loss);
-                health.css("width", ((hp / hpAmnt) * 100).toString() + "%");
-                
-                if (sound) { damage[GetRandomInt(0, damage.length - 1)].play(); }
+                "-webkit-transform": "translateY(" + lossOffset.toString() + "px)",
+                "-ms-transform": "translateY(" + lossOffset.toString() + "px)",
+                "transform": "translateY(" + lossOffset.toString() + "px)",
+                "visibility": "visible"
+            });
+            
+            if (hitShStop != null) { clearTimeout(hitShStop); }
+            if (shakeStop != null) { clearTimeout(shakeStop); }
+            
+            shaking = true;
+            shakeIntensity = 1000;
+            
+            animDelay = setTimeout(function() {
 
-                lossOffset = 20;
-                lossShowing = true;
-                $("#loss").html("-" + loss.toString());
-                $("#loss").css({
-
-                    "-webkit-transform": "translateY(" + lossOffset.toString() + "px)",
-                    "-ms-transform": "translateY(" + lossOffset.toString() + "px)",
-                    "transform": "translateY(" + lossOffset.toString() + "px)",
-                    "visibility": "visible"
-                });
-                if (hitShStop != null) { clearTimeout(hitShStop); }
-
-                if (shakeStop != null) { clearTimeout(shakeStop); }
-                shaking = true;
-                shakeIntensity = 1000;
-
-                animDelay = setTimeout(function() {
-
-                    isDelayed = false;
-                }, 1000);
-
-                shakeStop = setTimeout(function() {
-
-                    shaking = false;
-                    avatarimg.css({
-
-                        "-webkit-transform": "translate(0px,0px)",
-                        "-ms-transform": "translate(0px,0px)",
-                        "transform": "translate(0px,0px)"
-                    });
-                }, 1000);
-
-                loss = 0;
+                isDelayed = false;
             }, 1000);
+            
+            shakeStop = setTimeout(function() {
+
+                shaking = false;
+                avatarimg.css({
+
+                    "-webkit-transform": "translate(0px,0px)",
+                    "-ms-transform": "translate(0px,0px)",
+                    "transform": "translate(0px,0px)"
+                });
+            }, 1000);
+            
+            loss = 0;
+        }
+        else if (loss < 0)
+        {
+            lossOffset = 20;
+            lossShowing = true;
+            $("#loss").html("+" + Math.abs(loss).toString());
+            $("#loss").css({
+
+                "-webkit-transform": "translateY(" + lossOffset.toString() + "px)",
+                "-ms-transform": "translateY(" + lossOffset.toString() + "px)",
+                "transform": "translateY(" + lossOffset.toString() + "px)",
+                "visibility": "visible"
+            });
+            
+            if (hp < delayed)
+            {
+                health.css("width", ((hp / hpAmnt) * 100).toString() + "%");
+            }
+            
+            avatarimg.after('<img id="strikeimg" src="' + heal + '?a=' + Math.random() + '"/>');
+            imgRemove = setTimeout(function() { $("#strikeimg").remove(); }, 1000);
+            
+            if (hitShStop != null) { clearTimeout(hitShStop); }
+            if (shakeStop != null) { clearTimeout(shakeStop); }
+            
+            shaking = false;
+            avatarimg.css({
+
+                "-webkit-transform": "translate(0px,0px)",
+                "-ms-transform": "translate(0px,0px)",
+                "transform": "translate(0px,0px)"
+            });
+            
+            animDelay = setTimeout(function() {
+
+                isDelayed = false;
+            }, 1000);
+            
+            loss = 0;
         }
     }
 
@@ -448,13 +538,23 @@ $(document).ready(function () {
 
         if (!isDelayed && !refill && !preload)
         {
-            delayed = Math.max(delayed - ((hpAmnt / 5) / 60), hp);
-            if (nextBoss == "") { counter.html("HP: " + Math.floor(delayed).toLocaleString("en-US") + " / " + hpAmnt.toLocaleString("en-US")); }
-            hitdelay.css("width", ((delayed / hpAmnt) * 100).toString() + "%");
-
-            if (delayed == 0)
+            if (delayed > hp)
             {
-                Explode();
+                delayed = Math.max(delayed - ((hpAmnt / 5) / 60), hp);
+                if (nextBoss == "") { counter.html("HP: " + Math.floor(delayed).toLocaleString("en-US") + " / " + hpAmnt.toLocaleString("en-US")); }
+                hitdelay.css("width", ((delayed / hpAmnt) * 100).toString() + "%");
+
+                if (delayed == 0)
+                {
+                    Explode();
+                }
+            }
+            else if (delayed < hp)
+            {
+                delayed = Math.min(delayed + ((hpAmnt / 5) / 60), hp);
+                counter.html("HP: " + Math.floor(delayed).toLocaleString("en-US") + " / " + hpAmnt.toLocaleString("en-US"));
+                health.css("width", ((delayed / hpAmnt) * 100).toString() + "%");
+                hitdelay.css("width", ((delayed / hpAmnt) * 100).toString() + "%");
             }
         }
 

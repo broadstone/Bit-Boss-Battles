@@ -28,6 +28,13 @@ Bit Boss Battles (BBB) is a viewer interactive bits widget for the Twitch platfo
 
 CHANGELOG:
 
+v1.0.5:
+- Added option to allow current Bit Boss to heal him/herself.
+- The current Bit Boss cannot increase max health, only heal.
+- Healing has its own animated gif which plays over the avatar.
+- Damange and healing together will only show whichever is greater.
+- Small Settings Page improvements.
+
 v1.0.4:
 - Added option to modify Overkill Mode's initial HP.
 

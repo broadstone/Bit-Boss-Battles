@@ -1,7 +1,7 @@
 {
   "name": "Bit-Boss-Battles",
   "description": "Bit Boss Battles (BBB) is a viewer interactive bits widget for the Twitch platform. Streamers using BBB enable their viewers to fight each other using bits to become the next Bit Boss.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"

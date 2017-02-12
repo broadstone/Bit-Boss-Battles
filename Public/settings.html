@@ -30,14 +30,17 @@
                 <p class="padded">This turns the widget's background blue, overriding the Transparent Background option.</p>
                 <input type="checkbox" id="persistent"><label for="persistent">Persistent Mode</label><br>
                 <p class="padded">Saves cookies about the current boss and their health for persistence between streams. (The bug which previously broke this setting is <span style="color: red;">BELIEVED</span> to be fixed. Please submit a bug report on GitHub if you find an issue.)</p>
+                <input type="checkbox" id="bossheal"><label for="bossheal">Boss Healing</label><br>
+                <p class="padded">When enabled, the current Bit Boss can donate bits to heal himself. The Bit Boss cannot increase his/her max health, only heal.</p>
                 <br>
+                <input type="checkbox" style="visibility: hidden;"><label for="bossheal">HP Settings</label><br>
                 <table>
                     <tr style="border: 0;">
                         <td><input type="radio" name="hp" value="overkill" checked>Based on Overkill. Multiplier:</td>
                         <td><input type="number" id="hp-mult" min="1" max="10" value="1" step="1" style="width: 100px;"></td>
                     </tr>
                     <tr style="border: 0;">
-                        <td>Initial HP:</td>
+                        <td><input type="radio" style="visibility: hidden;">Initial HP:</td>
                         <td><input type="number" id="hp-init" min="100" max="25000" value="1000" step="100" style="width: 100px;"></td>
                     </tr>
                     <tr style="border: 0;">

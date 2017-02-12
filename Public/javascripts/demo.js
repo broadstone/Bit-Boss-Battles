@@ -10,6 +10,7 @@ $(document).ready(function () {
     var sound = false;
 
     // Boss vars
+    var currentBoss = "";
     var nextBoss = "nifty255";
 
     // Timeout and Interval handlers
@@ -93,6 +94,9 @@ $(document).ready(function () {
         "http://i.imgur.com/LCYgixP.gif"
     ];
     
+    // Heal
+    var heal = "http://i.imgur.com/fOvRfRk.gif";
+    
     parseCookies();
     
     sound = (getCookie("sound", "") == "true");
@@ -131,12 +135,43 @@ $(document).ready(function () {
                 else if (message.bits_used < 10000) { amount = "5000"; }
                 else { amount = "10000"; }
                 
-                $("#attackerdisplay").html("<img id='cheerimg' src='https://d3aqoihi2n8ty8.cloudfront.net/actions/" + message.context + "/light/animated/" + amount + "/1.gif?a=" + Math.random() + "'>" + info.displayName);
-                
-                $("#attackerdisplay").stop().animate({ "opacity": "1" }, 1000, "linear", function() { setTimeout(function() { $("#attackerdisplay").css("opacity", "0"); $("#attackerdisplay").html("&nbsp;"); }, 1000) });
-                
-                Strike(message.bits_used, message.user_name, info.displayName);
+                if (info.displayName == $("#name").html())
+                {
+                    $("#attackerdisplay").html("<img id='cheerimg' src='https://d3aqoihi2n8ty8.cloudfront.net/actions/" + message.context + "/light/animated/" + amount + "/1.gif?a=" + Math.random() + "'>" + info.displayName + " heals!");
+
+                    $("#attackerdisplay").stop().animate({ "opacity": "1" }, 1000, "linear", function() { setTimeout(function() { $("#attackerdisplay").css("opacity", "0"); $("#attackerdisplay").html("&nbsp;"); }, 1000) });
+
+                    Heal(message.bits_used, message.user_name, info.displayName);
+                }
+                else
+                {
+                    $("#attackerdisplay").html("<img id='cheerimg' src='https://d3aqoihi2n8ty8.cloudfront.net/actions/" + message.context + "/light/animated/" + amount + "/1.gif?a=" + Math.random() + "'>" + info.displayName + " attacks!");
+
+                    $("#attackerdisplay").stop().animate({ "opacity": "1" }, 1000, "linear", function() { setTimeout(function() { $("#attackerdisplay").css("opacity", "0"); $("#attackerdisplay").html("&nbsp;"); }, 1000) });
+
+                    Strike(message.bits_used, message.user_name, info.displayName);
+                }
             });
+        }
+    }
+    
+    function Heal(amount, healer, display) {
+        
+        if (nextBoss == "")
+        {
+            $("#strikeimg").remove();
+            if (imgRemove != null) { clearTimeout(imgRemove); }
+            
+            loss -= amount;
+            setCookie("currentHp", Math.min(hp - loss, maxHp).toString());
+
+            isDelayed = true;
+
+            if (animDelay != null) { clearTimeout(animDelay); }
+
+            if (frstDelay != null) { clearTimeout(frstDelay); }
+
+            frstDelay = setTimeout(RunHpCalc, 1000);
         }
     }
 
@@ -148,23 +183,23 @@ $(document).ready(function () {
 
             if (amount < 100)
             {
-                imgToUse = bits1[GetRandomInt(0, 3)];
+                imgToUse = bits1[GetRandomInt(0, bits1.length - 1)];
             }
             else if (amount < 1000)
             {
-                imgToUse = bits100[GetRandomInt(0, 3)];
+                imgToUse = bits100[GetRandomInt(0, bits100.length - 1)];
             }
             else if (amount < 5000)
             {
-                imgToUse = bits1000[GetRandomInt(0, 3)];
+                imgToUse = bits1000[GetRandomInt(0, bits1000.length - 1)];
             }
             else if (amount < 10000)
             {
-                imgToUse = bits5000[GetRandomInt(0, 3)];
+                imgToUse = bits5000[GetRandomInt(0, bits5000.length - 1)];
             }
             else
             {
-                imgToUse = bits10000[GetRandomInt(0, 3)];
+                imgToUse = bits10000[GetRandomInt(0, bits10000.length - 1)];
             }
             
             if (sound) { hits[GetRandomInt(0, hits.length - 1)].play(); }
@@ -177,8 +212,20 @@ $(document).ready(function () {
             loss += amount;
             if (hp - loss <= 0)
             {
+                overkill = loss - hp;
+                prevHp = 0;
+                
+                console.log("Overkill: " + overkill.toString());
+                
                 nextBoss = attacker;
                 counter.html("Final Blow: " + display);
+                
+                setCookie("currentBoss", nextBoss);
+                setCookie("currentHp", maxHp.toString());
+            }
+            else
+            {
+                setCookie("currentHp", (hp - loss).toString());
             }
 
             isDelayed = true;
@@ -187,47 +234,93 @@ $(document).ready(function () {
 
             if (frstDelay != null) { clearTimeout(frstDelay); }
 
-            frstDelay = setTimeout(function() {
+            frstDelay = setTimeout(RunHpCalc, 1000);
+        }
+    }
+    
+    function RunHpCalc() {
+        
+        hp = Math.min(Math.max(0, hp - loss), maxHp);
+        
+        if (loss == 0) { return; }
+        else if (loss > 0)
+        {
+            health.css("width", ((hp / maxHp) * 100).toString() + "%");
+            if (sound) { damage[GetRandomInt(0, damage.length - 1)].play(); }
+            
+            lossOffset = 20;
+            lossShowing = true;
+            $("#loss").html("-" + loss.toString());
+            $("#loss").css({
 
-                hp = Math.max(0, hp - loss);
-                health.css("width", ((hp / maxHp) * 100).toString() + "%");
-                
-                if (sound) { damage[GetRandomInt(0, damage.length - 1)].play(); }
+                "-webkit-transform": "translateY(" + lossOffset.toString() + "px)",
+                "-ms-transform": "translateY(" + lossOffset.toString() + "px)",
+                "transform": "translateY(" + lossOffset.toString() + "px)",
+                "visibility": "visible"
+            });
+            
+            if (hitShStop != null) { clearTimeout(hitShStop); }
+            if (shakeStop != null) { clearTimeout(shakeStop); }
+            
+            shaking = true;
+            shakeIntensity = 1000;
+            
+            animDelay = setTimeout(function() {
 
-                lossOffset = 20;
-                lossShowing = true;
-                $("#loss").html("-" + loss.toString());
-                $("#loss").css({
-
-                    "-webkit-transform": "translateY(" + lossOffset.toString() + "px)",
-                    "-ms-transform": "translateY(" + lossOffset.toString() + "px)",
-                    "transform": "translateY(" + lossOffset.toString() + "px)",
-                    "visibility": "visible"
-                });
-                if (hitShStop != null) { clearTimeout(hitShStop); }
-
-                if (shakeStop != null) { clearTimeout(shakeStop); }
-                shaking = true;
-                shakeIntensity = 1000;
-
-                animDelay = setTimeout(function() {
-
-                    isDelayed = false;
-                }, 1000);
-
-                shakeStop = setTimeout(function() {
-
-                    shaking = false;
-                    avatarimg.css({
-
-                        "-webkit-transform": "translate(0px,0px)",
-                        "-ms-transform": "translate(0px,0px)",
-                        "transform": "translate(0px,0px)"
-                    });
-                }, 1000);
-
-                loss = 0;
+                isDelayed = false;
             }, 1000);
+            
+            shakeStop = setTimeout(function() {
+
+                shaking = false;
+                avatarimg.css({
+
+                    "-webkit-transform": "translate(0px,0px)",
+                    "-ms-transform": "translate(0px,0px)",
+                    "transform": "translate(0px,0px)"
+                });
+            }, 1000);
+            
+            loss = 0;
+        }
+        else if (loss < 0)
+        {
+            lossOffset = 20;
+            lossShowing = true;
+            $("#loss").html("+" + Math.abs(loss).toString());
+            $("#loss").css({
+
+                "-webkit-transform": "translateY(" + lossOffset.toString() + "px)",
+                "-ms-transform": "translateY(" + lossOffset.toString() + "px)",
+                "transform": "translateY(" + lossOffset.toString() + "px)",
+                "visibility": "visible"
+            });
+            
+            if (hp < delayed)
+            {
+                health.css("width", ((hp / maxHp) * 100).toString() + "%");
+            }
+            
+            avatarimg.after('<img id="strikeimg" src="' + heal + '?a=' + Math.random() + '"/>');
+            imgRemove = setTimeout(function() { $("#strikeimg").remove(); }, 1000);
+            
+            if (hitShStop != null) { clearTimeout(hitShStop); }
+            if (shakeStop != null) { clearTimeout(shakeStop); }
+            
+            shaking = false;
+            avatarimg.css({
+
+                "-webkit-transform": "translate(0px,0px)",
+                "-ms-transform": "translate(0px,0px)",
+                "transform": "translate(0px,0px)"
+            });
+            
+            animDelay = setTimeout(function() {
+
+                isDelayed = false;
+            }, 1000);
+            
+            loss = 0;
         }
     }
 
@@ -338,6 +431,7 @@ $(document).ready(function () {
             if (hp == maxHp)
             {
                 refill = false;
+                currentBoss = nextBoss;
                 nextBoss = "";
                 hitdelay.css({
                     "width": "100%",
@@ -348,13 +442,23 @@ $(document).ready(function () {
 
         if (!isDelayed && !refill && !preload)
         {
-            delayed = Math.max(delayed - ((maxHp / 5) / 60), hp);
-            if (nextBoss == "") { counter.html("HP: " + Math.floor(delayed).toLocaleString("en-US") + " / " + maxHp.toLocaleString("en-US")); }
-            hitdelay.css("width", ((delayed / maxHp) * 100).toString() + "%");
-
-            if (delayed == 0)
+            if (delayed > hp)
             {
-                Explode();
+                delayed = Math.max(delayed - ((maxHp / 5) / 60), hp);
+                if (nextBoss == "") { counter.html("HP: " + Math.floor(delayed).toLocaleString("en-US") + " / " + maxHp.toLocaleString("en-US")); }
+                hitdelay.css("width", ((delayed / maxHp) * 100).toString() + "%");
+
+                if (delayed == 0)
+                {
+                    Explode();
+                }
+            }
+            else if (delayed < hp)
+            {
+                delayed = Math.min(delayed + ((maxHp / 5) / 60), hp);
+                counter.html("HP: " + Math.floor(delayed).toLocaleString("en-US") + " / " + maxHp.toLocaleString("en-US"));
+                health.css("width", ((delayed / maxHp) * 100).toString() + "%");
+                hitdelay.css("width", ((delayed / maxHp) * 100).toString() + "%");
             }
         }
 
@@ -413,4 +517,5 @@ $(document).ready(function () {
     $("#strike1000").click(function () { InterpretData({ user_name: $("#attackerinput").val(), bits_used: 1000, context: "cheer" }); });
     $("#strike5000").click(function () { InterpretData({ user_name: $("#attackerinput").val(), bits_used: 5000, context: "cheer" }); });
     $("#strike10000").click(function () { InterpretData({ user_name: $("#attackerinput").val(), bits_used: 10000, context: "cheer" }); });
+    $("#heal").click(function () { InterpretData({ user_name: currentBoss, bits_used: 25, context: "cheer" }); });
 });
