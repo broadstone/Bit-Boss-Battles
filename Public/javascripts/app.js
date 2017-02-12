@@ -501,7 +501,7 @@ $(document).ready(function () {
         }
     }, (1000/60));
     
-    Fake("topic", InterpretData);
+//    Fake("topic", InterpretData);
     
 //    $("#fake").click(function() {
 //        InterpretMessage({ data: '{"type":"MESSAGE","data":{"topic":"topic","message":"{\\"user_name\\":\\"nifty255\\",\\"bits_used\\":20,\\"context\\":\\"cheer\\"}"}}' });

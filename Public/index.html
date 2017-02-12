@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Bit Boss Battles | Launcher</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="./stylesheets/common.css" rel="stylesheet">
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
         <script src="./javascripts/info.js"></script>
@@ -10,9 +11,9 @@
     <body>
         <div class="main">
             <div class="container" style="margin-top: 0; padding-top: 0;">
-                <div style="text-align: center;"><h1>Bit Boss Battles</h1></div>
-                <p>Take charge, brave streamer, lead your viewers into battle with their bits! The almighty Bit Boss has awoken! Give your viewers a live game to play against eachother by using this widget to fight the Bit Boss. For each bit cheered, 1 damage is dealt to the current boss. But be forewarned; the viewer to deal the final blow to the current boss becomes the new Bit Boss!</p>
-                <div style="text-align: center;"><img src="http://i.imgur.com/3jLBmxq.gif"></div>
+                <div style="text-align: center;"><img src="./images/logo.png"></div>
+                <p class="indent">Take charge, brave streamer, and lead your viewers into battle with their bits! The almighty Bit Boss has awoken! Give your viewers a live game to play against each other by using this widget to fight the Bit Boss. For each bit cheered, 1 damage is dealt to the current boss. But be forewarned; the viewer to deal the final blow to the current boss becomes the new Bit Boss!</p>
+                <div style="text-align: center;"><img src="./images/BitBossBattle.gif"></div>
                 <div class="space"></div>
             </div>
             <table>
@@ -44,22 +45,20 @@
                 </tr>
             </table>
             <div class="container">
-                <p>If you use OBS or any other streaming software with browser capture, you can simply copy the following link:</p>
+                <p class="indent">If you use OBS or any other streaming software with browser capture, you can simply copy the following link to use as your source URL. (The minimum recommended size is 350px x 96px.)</p>
                 <div class="link" id="link"><span style="color: red;">App not yet authorized. Authorize the app to get a link.</span></div>
-                <p>(If the link is too long and appears cut off, simply triple click it and copy. The whole link will be copied.)</p>
-                <p>The minimum recommended size is 350px x 96px.</p>
                 <br>
                 <br>
                 <h3>Settings</h3>
-                <p>Change your settings here. <span style="color: red;">NOTE:</span> If using the app window launched from this page, the window will automatically refresh its settings. If you're using the above link with streaming software, the link will change and you'll have to modify your source's URL.</p>
+                <p class="indent">Change your settings here. <span style="color: red;">NOTE:</span> If using the app window launched from this page, the window will automatically refresh its settings. If you're using the above link with streaming software, the link will change and you'll have to modify your source's URL.</p>
                 <input type="checkbox" id="sound"><label for="sound">Sound Effects</label><br>
-                <p class="indent">Sound effects play when the player is initially hit, when the avatar shakes, and when the current boss is defeated.</p>
+                <p class="padded">Sound effects play when the player is initially hit, when the avatar shakes, and when the current boss is defeated.</p>
                 <input type="checkbox" id="trans"><label for="trans">Transparent Background</label><br>
-                <p class="indent">If you use the widget through OBS, this disables the background.</p>
+                <p class="padded">If you use the widget through OBS, this disables the background.</p>
                 <input type="checkbox" id="chroma"><label for="chroma">Chroma (Blue) Background</label><br>
-                <p class="indent">This turns the widget's background blue, overriding the Transparent Background option.</p>
+                <p class="padded">This turns the widget's background blue, overriding the Transparent Background option.</p>
                 <input type="checkbox" id="reset" disabled><label for="persistent">Persistent Mode</label><br>
-                <p class="indent">Saves cookies about the current boss and their health for persistence between streams. <span style="color: red;">Currently disabled due to a bug.</span></p>
+                <p class="padded">Saves cookies about the current boss and their health for persistence between streams. <span style="color: red;">Currently disabled due to a bug.</span></p>
                 <br>
                 <table>
                     <tr style="border: 0;">
@@ -71,7 +70,7 @@
                         <td><input type="number" id="hp-amnt" min="100" max="25000" value="1000" step="100" style="width: 100px;" disabled></td>
                     </tr>
                 </table>
-                <p class="indent">Determines how much HP each Bit Boss gets. You can set a constant value, or use the spare bits left over from the final blow (the "overkill"), multiplied by the set multiplier. If Overkill is selected, the initial boss will have 1,000 HP. As an example for Overkill, the last attacker hits a boss at 50 remaining HP with 100 bits. The "overkill amount" will be 50. If the multiplier is set to 5, the new boss's HP will be set to 250. If the overkill amount with the multiplier is less than 100, the next boss's HP will be set to 100. <span style="color: red;">NOTE:</span> These settings require a manual restart.</p>
+                <p class="padded">Determines how much HP each Bit Boss gets. You can set a constant value, or use the spare bits left over from the final blow (the "overkill"), multiplied by the set multiplier. If Overkill is selected, the initial boss will have 1,000 HP. As an example for Overkill, the last attacker hits a boss at 50 remaining HP with 100 bits. The "overkill amount" will be 50. If the multiplier is set to 5, the new boss's HP will be set to 250. If the overkill amount with the multiplier is less than 100, the next boss's HP will be set to 100. <span style="color: red;">NOTE:</span> These settings require a manual restart.</p>
             </div>
         </div>
     </body>

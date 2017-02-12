@@ -28,6 +28,9 @@ Bit Boss Battles (BBB) is a viewer interactive bits widget for the Twitch platfo
 
 CHANGELOG:
 
+v1.0.1.1:
+- Landing Page improvements.
+
 v1.0.1:
 - The index page now properly remembers the "HP Type" cookie.
 

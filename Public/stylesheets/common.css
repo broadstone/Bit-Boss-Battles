@@ -1,3 +1,4 @@
+body { font-family: 'Roboto', sans-serif; }
 div.main { max-width: 720px; border: 1px solid black; border-radius: 8px; padding: 10px 0; margin: 0 auto; }
 div.link { margin: 0 auto; padding: 10px; border: 1px solid #cccccc; border-radius: 4px; background-color: #eeeeee; word-break: break-all; }
 div.container { margin: 10px 0; padding: 10px 10px 0px 10px; }
@@ -8,6 +9,7 @@ td { width: 50%; vertical-align: top; padding: 10px; }
 td>p { margin: 0; padding-left: 5px; }
 button { width: 100%; }
 p.indent { text-indent: 25px; }
+p.padded { padding-left: 25px; }
 
 .btn {
     display: inline-block;
