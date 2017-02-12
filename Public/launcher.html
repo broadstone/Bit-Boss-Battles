@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>Bit Boss Battles | Launcher</title>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="./stylesheets/common.css" rel="stylesheet">
+        <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="./javascripts/info.js"></script>
+        <script src="./javascripts/cookies.js"></script>
+        <script src="./javascripts/launcher.js"></script>
+    </head>
+    <body>
+        <div class="main">
+            <div class="container" style="margin-top: 0; padding-top: 0;">
+                <div style="text-align: center;"><img src="./images/logo.png"><br><h1 style="font-family: 'Press Start 2P', cursive;">By Nifty255</h1></div>
+            </div>
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+                <li><a href="./index.html">Home</a></li>
+                <li class="active"><a>Launcher</a></li>
+                <li><a href="./settings.html">Settings</a></li>
+                <li><a href="./about.html">About</a></li>
+            </ul>
+            <table>
+                <tr>
+                    <td>
+                        <button class="btn btn-default" id="auth">Authorize Bit Boss Battles</button>
+                    </td>
+                    <td>
+                        <p>Before you can use the widget, you must authorize it. Click the "Authorize" button to open the Auth window. Once you've finished, the Auth window will close and you can then click Launch. The demo will be around whether or not you authorize.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn btn-default" id="launch" disabled>Launch Widget</button>
+                        <div class="space"></div>
+                        <button class="btn btn-default" id="demo">Launch Demo</button>
+                    </td>
+                    <td>
+                        <p>Click "Launch Widget" to launch the live widget in your current browser. If Bit Boss Battles won't work properly in your streaming software as a web source, this is an alternate solution. If you'd like to try Bit Boss Battles first, you can click "Launch Demo" to see how it works. <span style="color: red;">NOTE:</span> The demo ignores all settings except sound.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn btn-default" id="reset">Reset</button>
+                    </td>
+                    <td>
+                        <p>Click "Reset Cookies" to clear the widget's cookies. This clears the current boss, their health, and resets all options. <span style="color: red;">NOTE:</span> This only clears the cookies in the current browser. To clear cookies when using the URL for stream software, temporarily disable Persistent Mode in Settings. If you never run Persistent Mode, then cookies are always cleared on startup.</p>
+                    </td>
+                </tr>
+            </table>
+            <div class="container">
+                <p class="indent">If you use OBS or any other streaming software with browser capture, you can simply copy the following link to use as your source URL. (The minimum recommended size is 350px x 96px.)</p>
+                <div class="link" id="link"><span style="color: red;">App not yet authorized. Authorize the app to get a link.</span></div>
+            </div>
+        </div>
+    </body>
+</html>

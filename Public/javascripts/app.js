@@ -429,7 +429,7 @@ $(document).ready(function () {
             counter.html("HP: " + Math.floor(delayed).toLocaleString("en-US") + " / " + hpAmnt.toLocaleString("en-US"));
             health.css("width", ((hp / hpAmnt) * 100).toString() + "%");
 
-            if (hp == hpAmnt)
+            if (hp == (prevHp == 0 ? hpAmnt : prevHp))
             {
                 refill = false;
                 nextBoss = "";

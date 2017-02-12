@@ -1,13 +1,14 @@
 body { font-family: 'Roboto', sans-serif; }
 div.main { max-width: 720px; border: 1px solid black; border-radius: 8px; padding: 10px 0; margin: 0 auto; }
 div.link { margin: 0 auto; padding: 10px; border: 1px solid #cccccc; border-radius: 4px; background-color: #eeeeee; word-break: break-all; }
-div.container { margin: 10px 0; padding: 10px 10px 0px 10px; }
+div.container { margin: 10px 0; padding: 10px 10px 0px 10px; width: 100%; }
 div.space { height: 25px; }
 table { border-collapse: collapse; }
-tr { border-top: 1px solid black; border-bottom: 1px solid black; }
+tr { border-bottom: 1px solid black; }
 td { width: 50%; vertical-align: top; padding: 10px; }
 td>p { margin: 0; padding-left: 5px; }
 button { width: 100%; }
+p { font-size: medium; }
 p.indent { text-indent: 25px; }
 p.padded { padding-left: 25px; }
 
@@ -87,4 +88,23 @@ p.padded { padding-left: 25px; }
 .btn-default[disabled]:active {
     background-color: #ffffff;
     border-color: #cccccc;
+}
+
+.nav-tabs.nav-justified {
+    padding: 0 5px;
+    border-bottom: 1px solid black;
+}
+
+.nav-tabs.nav-justified>li>a {
+    border-bottom: 0;
+}
+
+.nav-tabs.nav-justified>li.active>a,
+.nav-tabs.nav-justified>li.active>a:hover {
+    border: 1px solid black;
+    border-bottom-color: #fff;
+}
+
+.nav-tabs.nav-justified>li.active>a:hover {
+    background-color: #eee;
 }
