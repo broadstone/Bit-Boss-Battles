@@ -154,7 +154,7 @@ $(document).ready(function () {
     $.ajax({
         url: "https://api.twitch.tv/kraken/user",
         type: "GET",
-        beforeSend: function(xhr){ xhr.setRequestHeader('Authorization', "OAuth " + oauth); xhr.setRequestHeader('Client_ID', clientId); },
+        beforeSend: function(xhr){ xhr.setRequestHeader('Authorization', "OAuth " + oauth); xhr.setRequestHeader('Client-Id', clientId); },
         success: function(data) {
             
             channelId = data._id;
