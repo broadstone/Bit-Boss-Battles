@@ -131,6 +131,12 @@ $(document).ready(function () {
         hpType = getCookie("hptype", "overkill");
         hpMult = parseInt(getCookie("hpmult", "1"));
         hpAmnt = (hpType == "overkill" ? 1000 : parseInt(getCookie("hpamnt", "1000")));
+        
+        if (getCookie("persistent", "false") != "true")
+        {
+            setCookie("currentBoss", "");
+            setCookie("currentHp", "0");
+        }
     }
     
     if (oauth == "") { $("body").html("<h1 style='color: red;'>ERROR. NO AUTH.</h1>"); return; }
