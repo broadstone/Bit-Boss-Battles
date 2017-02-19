@@ -26,7 +26,12 @@ Bit Boss Battles (BBB) is a viewer interactive bits widget for the Twitch platfo
 - Enable or disable sounds, Transparent Mode, Chroma Mode, or Persistence Mode.
 - Use constant HP, or allow a viewer's "overkill" bits to determine their health.
 
+Bit Boss Battles requires authorization in order to listen for bits notifications from the Twitch API. BBB requires the "User Read" permission in order to obtain the streamer's user ID (public information) from the token it receives from authorization. Once authorized, BBB stores the token only as a cookie on your browser. BBB's servers DO NOT store ANY personal information about you or your Twitch account.
+
 CHANGELOG:
+
+v1.0.5.2:
+- Updated README. Now includes information about the data BBB uses.
 
 v1.0.5.1:
 - Minor About Page fix.
