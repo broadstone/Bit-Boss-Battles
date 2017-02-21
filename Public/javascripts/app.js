@@ -530,7 +530,7 @@ $(document).ready(function () {
                 refill = false;
                 nextBoss = "";
                 hitdelay.css({
-                    "width": "100%",
+                    "width": health.css("width"),
                     "visibility": "visible"
                 });
             }
