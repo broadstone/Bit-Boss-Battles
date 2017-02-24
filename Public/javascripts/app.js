@@ -102,8 +102,6 @@ $(document).ready(function () {
     // Heal
     var heal = "http://i.imgur.com/fOvRfRk.gif";
     
-    // TODO: Add Heal gifs.
-    
     parseCookies();
     
     if (GetUrlParameter("token") != null)
@@ -147,6 +145,13 @@ $(document).ready(function () {
             setCookie("currentBoss", "");
             setCookie("currentHp", "0");
         }
+    }
+    
+    var cookieHp = parseInt(getCookie("maxHp", "0"));
+
+    if (cookieHp != 0)
+    {
+        hpAmnt = cookieHp;
     }
     
     if (oauth == "") { $("body").html("<h1 style='color: red;'>ERROR. NO AUTH.</h1>"); return; }
@@ -303,7 +308,17 @@ $(document).ready(function () {
                 counter.html("Final Blow: " + display);
                 
                 setCookie("currentBoss", nextBoss);
-                setCookie("currentHp", hpAmnt.toString());
+                
+                if (hpType == "overkill")
+                {
+                    setCookie("currentHp", (overkill * hpMult < 100 ? 100 : overkill * hpMult));
+                    setCookie("maxHp", (overkill * hpMult < 100 ? 100 : overkill * hpMult));
+                }
+                else
+                {
+                    setCookie("currentHp", hpAmnt.toString());
+                    setCookie("maxHp", hpAmnt.toString());
+                }
             }
             else
             {
@@ -448,7 +463,6 @@ $(document).ready(function () {
                 if (hpType == "overkill" && overkill != null)
                 {
                     hpAmnt = (overkill * hpMult < 100 ? 100 : overkill * hpMult);
-                    console.log(overkill * hpMult)
                 }
                 
                 $("#name").html(info.displayName);
